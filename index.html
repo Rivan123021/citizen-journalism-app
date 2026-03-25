@@ -107,6 +107,20 @@
             margin-top: 10px;
         }
 
+        /* ⭐ ONLY NEW ADDITION */
+        .photo-row {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .photo-row .btn {
+            flex: 1;
+            margin: 0;
+            font-size: 12px;
+            padding: 10px;
+        }
+
         /* DASHBOARD */
         #dataList {
             max-height: 60vh;
@@ -221,15 +235,18 @@
 
                 <button class="btn primary" onclick="getLocation()">📍 Get My Location</button>
 
+                <!-- ⭐ ONLY CHANGE -->
+                <div class="photo-row">
+                    <button class="btn primary" onclick="openCamera()">📸 Take Photo</button>
+                    <button class="btn green" onclick="openGallery()">🖼️ Choose Photo</button>
+                    <button class="btn gray" onclick="openFile()">📁 Upload File</button>
+                </div>
+
                 <input type="file" id="cameraInput" accept="image/*" capture="environment"
                     onchange="previewImage(event)" style="display:none;">
                 <input type="file" id="galleryInput" accept="image/*" onchange="previewImage(event)"
                     style="display:none;">
                 <input type="file" id="fileInput" onchange="previewImage(event)" style="display:none;">
-
-                <button class="btn primary" onclick="openCamera()">📸 Take Photo</button>
-                <button class="btn green" onclick="openGallery()">🖼️ Choose Photo</button>
-                <button class="btn gray" onclick="openFile()">📁 Upload File</button>
 
                 <img id="preview" style="display:none; width:100%; margin-top:10px;">
 
