@@ -14,56 +14,74 @@
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
+        /* MAIN APP CONTAINER */
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            height: 95vh;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* SCREEN FIX */
         .screen {
             display: none;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             overflow-y: auto;
-            padding: 20px 0;
         }
 
         .active {
             display: block;
         }
 
+        /* CARD UI */
         .card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 16px;
             width: 90%;
-            max-width: 420px;
             margin: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
+        /* HEADER */
         .header {
-            position: sticky;
-            top: 0;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 10px;
             text-align: center;
             font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 18px;
         }
 
+        /* INPUTS */
         input,
         textarea {
             width: 100%;
             padding: 10px;
             margin: 8px 0;
-            border-radius: 6px;
+            border-radius: 8px;
             border: none;
         }
 
+        /* BUTTONS */
         .btn {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
             cursor: pointer;
+            font-weight: bold;
         }
 
         .primary {
@@ -82,12 +100,14 @@
             background: #555;
         }
 
+        /* MAP */
         #map {
             height: 200px;
             border-radius: 10px;
             margin-top: 10px;
         }
 
+        /* DASHBOARD */
         #dataList {
             max-height: 60vh;
             overflow-y: auto;
@@ -122,7 +142,6 @@
         .timestamp {
             font-size: 11px;
             color: #ccc;
-            margin-bottom: 6px;
         }
 
         .preview-img {
@@ -130,103 +149,115 @@
             border-radius: 8px;
             margin-top: 8px;
         }
+
+        /* MOBILE FIX */
+        @media (max-width: 500px) {
+            .app-container {
+                height: auto;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- LOGIN -->
-    <div id="login" class="screen active">
-        <div class="card">
-            <div class="header">Login</div>
-            <input id="loginUser" placeholder="Username">
-            <input id="loginPass" type="password" placeholder="Password">
-            <button class="btn primary" onclick="login()">Login</button>
-            <button class="btn gray" onclick="show('signup')">Signup</button>
+    <div class="app-container">
+
+        <!-- LOGIN -->
+        <div id="login" class="screen active">
+            <div class="card">
+                <div class="header">Login</div>
+                <input id="loginUser" placeholder="Username">
+                <input id="loginPass" type="password" placeholder="Password">
+                <button class="btn primary" onclick="login()">Login</button>
+                <button class="btn gray" onclick="show('signup')">Signup</button>
+            </div>
         </div>
-    </div>
 
-    <!-- SIGNUP -->
-    <div id="signup" class="screen">
-        <div class="card">
-            <div class="header">Signup</div>
-            <input id="newUser" placeholder="Username">
-            <input id="newPass" type="password" placeholder="Password">
-            <button class="btn green" onclick="signup()">Create Account</button>
-            <button class="btn gray" onclick="show('login')">Back</button>
+        <!-- SIGNUP -->
+        <div id="signup" class="screen">
+            <div class="card">
+                <div class="header">Signup</div>
+                <input id="newUser" placeholder="Username">
+                <input id="newPass" type="password" placeholder="Password">
+                <button class="btn green" onclick="signup()">Create Account</button>
+                <button class="btn gray" onclick="show('login')">Back</button>
+            </div>
         </div>
-    </div>
 
-    <!-- HOME -->
-    <div id="home" class="screen">
-        <div class="card">
-            <div class="header">Citizen Journalist</div>
-            <button class="btn red" onclick="show('complaint')">Complaint</button>
-            <button class="btn green" onclick="show('report'); setTimeout(initMap,200)">Report News</button>
-            <button class="btn primary" onclick="show('coordinate')">Request Help</button>
-            <button class="btn gray" onclick="loadDashboard()">Dashboard</button>
-            <button class="btn gray" onclick="logout()">Logout</button>
+        <!-- HOME -->
+        <div id="home" class="screen">
+            <div class="card">
+                <div class="header">Citizen Journalist</div>
+                <button class="btn red" onclick="show('complaint')">Complaint</button>
+                <button class="btn green" onclick="show('report'); setTimeout(initMap,200)">Report News</button>
+                <button class="btn primary" onclick="show('coordinate')">Request Help</button>
+                <button class="btn gray" onclick="loadDashboard()">Dashboard</button>
+                <button class="btn gray" onclick="logout()">Logout</button>
+            </div>
         </div>
-    </div>
 
-    <!-- COMPLAINT -->
-    <div id="complaint" class="screen">
-        <div class="card">
-            <div class="header">Complaint</div>
-            <input id="cname" placeholder="Your Name">
-            <textarea id="cmsg" placeholder="Describe your complaint"></textarea>
-            <button class="btn red" onclick="saveData('complaint')">Submit</button>
-            <button class="btn gray" onclick="show('home')">Back</button>
+        <!-- COMPLAINT -->
+        <div id="complaint" class="screen">
+            <div class="card">
+                <div class="header">Complaint</div>
+                <input id="cname" placeholder="Your Name">
+                <textarea id="cmsg" placeholder="Describe your complaint"></textarea>
+                <button class="btn red" onclick="saveData('complaint')">Submit</button>
+                <button class="btn gray" onclick="show('home')">Back</button>
+            </div>
         </div>
-    </div>
 
-    <!-- REPORT -->
-    <div id="report" class="screen">
-        <div class="card">
-            <div class="header">Report News</div>
+        <!-- REPORT -->
+        <div id="report" class="screen">
+            <div class="card">
+                <div class="header">Report News</div>
 
-            <input id="rlocation" placeholder="Location Name">
-            <textarea id="rdesc" placeholder="Incident Description"></textarea>
+                <input id="rlocation" placeholder="Location Name">
+                <textarea id="rdesc" placeholder="Incident Description"></textarea>
 
-            <div id="map"></div>
-            <p id="coords">No location selected</p>
-            <button class="btn primary" onclick="getLocation()">📍 Get My Location</button>
+                <div id="map"></div>
+                <p id="coords">No location selected</p>
 
-            <!-- PHOTO OPTIONS -->
-            <input type="file" id="cameraInput" accept="image/*" capture="environment" onchange="previewImage(event)"
-                style="display:none;">
-            <input type="file" id="galleryInput" accept="image/*" onchange="previewImage(event)" style="display:none;">
-            <input type="file" id="fileInput" onchange="previewImage(event)" style="display:none;">
+                <button class="btn primary" onclick="getLocation()">📍 Get My Location</button>
 
-            <button class="btn primary" onclick="openCamera()">📸 Take Photo</button>
-            <button class="btn green" onclick="openGallery()">🖼️ Choose Photo</button>
-            <button class="btn gray" onclick="openFile()">📁 Upload File</button>
+                <input type="file" id="cameraInput" accept="image/*" capture="environment"
+                    onchange="previewImage(event)" style="display:none;">
+                <input type="file" id="galleryInput" accept="image/*" onchange="previewImage(event)"
+                    style="display:none;">
+                <input type="file" id="fileInput" onchange="previewImage(event)" style="display:none;">
 
-            <img id="preview" style="display:none; width:100%; margin-top:10px;">
+                <button class="btn primary" onclick="openCamera()">📸 Take Photo</button>
+                <button class="btn green" onclick="openGallery()">🖼️ Choose Photo</button>
+                <button class="btn gray" onclick="openFile()">📁 Upload File</button>
 
-            <button class="btn green" onclick="saveData('report')">Submit</button>
-            <button class="btn gray" onclick="show('home')">Back</button>
+                <img id="preview" style="display:none; width:100%; margin-top:10px;">
+
+                <button class="btn green" onclick="saveData('report')">Submit</button>
+                <button class="btn gray" onclick="show('home')">Back</button>
+            </div>
         </div>
-    </div>
 
-    <!-- COORDINATE -->
-    <div id="coordinate" class="screen">
-        <div class="card">
-            <div class="header">Request Help</div>
-            <input id="area" placeholder="Area / Location">
-            <textarea id="help" placeholder="Describe Help"></textarea>
-            <button class="btn primary" onclick="saveData('coordinate')">Send</button>
-            <button class="btn gray" onclick="show('home')">Back</button>
+        <!-- COORDINATE -->
+        <div id="coordinate" class="screen">
+            <div class="card">
+                <div class="header">Request Help</div>
+                <input id="area" placeholder="Area / Location">
+                <textarea id="help" placeholder="Describe Help"></textarea>
+                <button class="btn primary" onclick="saveData('coordinate')">Send</button>
+                <button class="btn gray" onclick="show('home')">Back</button>
+            </div>
         </div>
-    </div>
 
-    <!-- DASHBOARD -->
-    <div id="dashboard" class="screen">
-        <div class="card">
-            <div class="header">Dashboard</div>
-            <div id="dataList"></div>
-            <button class="btn gray" onclick="show('home')">Back</button>
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="screen">
+            <div class="card">
+                <div class="header">Dashboard</div>
+                <div id="dataList"></div>
+                <button class="btn gray" onclick="show('home')">Back</button>
+            </div>
         </div>
+
     </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -234,13 +265,11 @@
     <script>
         let selectedFile = null;
 
-        // NAV
         function show(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
 
-        // AUTH
         function signup() {
             localStorage.setItem("user", newUser.value);
             localStorage.setItem("pass", newPass.value);
@@ -257,10 +286,9 @@
 
         function logout() { show('login'); }
 
-        // PHOTO FUNCTIONS
-        function openCamera() { document.getElementById('cameraInput').click(); }
-        function openGallery() { document.getElementById('galleryInput').click(); }
-        function openFile() { document.getElementById('fileInput').click(); }
+        function openCamera() { cameraInput.click(); }
+        function openGallery() { galleryInput.click(); }
+        function openFile() { fileInput.click(); }
 
         function previewImage(e) {
             selectedFile = e.target.files[0];
@@ -270,7 +298,6 @@
             }
         }
 
-        // SAVE
         function saveData(type) {
             let data = { type, time: new Date().toLocaleString() };
 
@@ -313,7 +340,6 @@
             show('home');
         }
 
-        // DASHBOARD
         function loadDashboard() {
             let all = JSON.parse(localStorage.getItem("data") || "[]");
             let html = "";
@@ -323,7 +349,7 @@
                     d.type === 'report' ? 'tag-report' : 'tag-help';
 
                 html += `<div class="data-card">
-<span class="tag ${tagClass}">Sent By: ${d.typeName}</span>
+<span class="tag ${tagClass}">${d.typeName}</span>
 <div class="timestamp">${d.time}</div>`;
 
                 if (d.type === 'complaint') {
@@ -332,15 +358,15 @@
                 }
 
                 if (d.type === 'report') {
-                    html += `<p><b>Location Name:</b> ${d.location}</p>
-<p><b>Incident Description:</b> ${d.desc}</p>
-<p><b>Selected Location:</b> ${d.coords}</p>
+                    html += `<p><b>Location:</b> ${d.location}</p>
+<p><b>Description:</b> ${d.desc}</p>
+<p><b>Coords:</b> ${d.coords}</p>
 ${d.image ? `<img src="${d.image}" class="preview-img">` : ""}`;
                 }
 
                 if (d.type === 'coordinate') {
-                    html += `<p><b>Area/Location:</b> ${d.area}</p>
-<p><b>Describe Help:</b> ${d.help}</p>`;
+                    html += `<p><b>Area:</b> ${d.area}</p>
+<p><b>Help:</b> ${d.help}</p>`;
                 }
 
                 html += `</div>`;
@@ -350,7 +376,6 @@ ${d.image ? `<img src="${d.image}" class="preview-img">` : ""}`;
             show('dashboard');
         }
 
-        // MAP
         let map, marker;
         function initMap() {
             if (map) return;
